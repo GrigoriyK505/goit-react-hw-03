@@ -1,10 +1,28 @@
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, ErrorMessage } from 'formik';
 import React from 'react';
 import s from './ContactForm.module.css';
+import * as Yup from 'yup';
 
 
     
 const ContactForm = ({ handleAddContact }) => {
+
+    const onlyLetters = /^[A-Za-zА-Яа-яЄєІіЇїҐґ-\s]+$/;
+    const onlyNumbers = /^[0-9]+$/;
+    
+    const validationSchema = Yup.object().shape({
+        name: Yup.string()
+            .min(3, 'Min 3 letters')
+            .max(89, 'Max 89 numbers')
+            .required('Required')
+            .matches(onlyLetters, 'Only letters'),
+        number: Yup.string()
+            .min(3, 'Min 3 letters')
+            .max(89, 'Max 89 numbers')
+            .required('Required').matches(onlyNumbers, 'Only numbers')
+    })
+    
+
     const initialValues = {
         name: '',
         number: '',
@@ -21,13 +39,16 @@ const ContactForm = ({ handleAddContact }) => {
             <Formik
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
+                validationSchema={validationSchema}
              >
                 <Form className={s.form}>
                     <label>Name
                         <Field className={s.input} name="name"></Field>
+                        <ErrorMessage className={s.error} component='p' name="name"/> 
                     </label>
                     <label>Number
                         <Field className={s.input} name="number"></Field>
+                        <ErrorMessage className={s.error} component='p' name="number"/>
                     </label>
                     <button className={s.button} type='submit'>Add contact</button>
                 </Form>
