@@ -42,14 +42,16 @@ const ContactForm = ({ handleAddContact }) => {
                 validationSchema={validationSchema}
              >
                 <Form className={s.form}>
-                    <label>Name
+                    <div className={s.box}>
+                        <label>Name</label>
                         <Field className={s.input} name="name"></Field>
                         <ErrorMessage className={s.error} component='p' name="name"/> 
-                    </label>
-                    <label>Number
+                    </div>
+                    <div className={s.box}>
+                        <label>Number</label>
                         <Field className={s.input} name="number"></Field>
                         <ErrorMessage className={s.error} component='p' name="number"/>
-                    </label>
+                    </div>
                     <button className={s.button} type='submit'>Add contact</button>
                 </Form>
             </Formik>

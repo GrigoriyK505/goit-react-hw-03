@@ -7,7 +7,8 @@ const SearchBox = ({ handleSearchChange, value }) => {
         <input type="text"
             value={value}
             onChange={handleSearchChange}
-            className={s.search} />
+            className={s.search}
+            placeholder="Search contacts..."/>
     );
 }
 
